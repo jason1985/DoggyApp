@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jason/AndroidStudioProjects/DoggyApp/app/src/main/res/layout/activity_main.xml" value="0.19384057971014493" />
+        <entry key="..\:/Users/jason/AndroidStudioProjects/DoggyApp/app/src/main/res/layout/activity_gallery.xml" value="0.21920289855072464" />
+        <entry key="..\:/Users/jason/AndroidStudioProjects/DoggyApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/jason/AndroidStudioProjects/DoggyApp/app/src/main/res/layout/content_main.xml" value="0.19384057971014493" />
         <entry key="..\:/Users/jason/AndroidStudioProjects/DoggyApp/app/src/main/res/layout/fragment_first.xml" value="0.19384057971014493" />
         <entry key="..\:/Users/jason/AndroidStudioProjects/DoggyApp/app/src/main/res/layout/fragment_second.xml" value="0.19384057971014493" />
