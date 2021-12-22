@@ -2,7 +2,17 @@ package com.example.doggyapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.d
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class GalleryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +21,42 @@ class GalleryActivity : AppCompatActivity() {
 
         val selectedBreed: String = intent.getStringExtra("selectedBreed").toString()
         val sBreed = findViewById<TextView>(R.id.textViewGallery)
-        sBreed.text = "This screen will use https://dog.ceo/api/$selectedBreed/hound/images endpoint\n" +
-                " to show pictures of $selectedBreed" + "s"
+        sBreed.text = selectedBreed + "s"
+
+        ///retrofit
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://dog.ceo/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val api = retrofit.create(ApiService::class.java)
+
+        api.fetchAllImages(selectedBreed).enqueue(object : Callback<DogBreeds> {
+            override fun onResponse(call: Call<DogBreeds>, response: Response<DogBreeds>) {
+//                d("test","onResponse: ${response.body()?.message!![0]}")
+                showData(response.body()!!)
+            }
+
+            override fun onFailure(call: Call<DogBreeds>, t: Throwable) {
+                Log.d("net", "onFailure $t")
+            }
+
+        })
+    }
+
+    private fun showData(breeds: DogBreeds){
+        val dogImages = ArrayList<Dog>()
+
+        for (item in breeds.message) {
+            dogImages.add(Dog(item))
+        }
+
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_breed)
+
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context.applicationContext)
+            adapter = DogImagesAdapter(dogImages)
+        }
     }
 }
