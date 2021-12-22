@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,7 +56,7 @@ class GalleryActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv_breed)
 
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(context.applicationContext)
+            layoutManager = GridLayoutManager(context.applicationContext,2)
             adapter = DogImagesAdapter(dogImages)
         }
     }
