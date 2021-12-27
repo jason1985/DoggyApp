@@ -1,8 +1,15 @@
-# DoggyApp - Work in Progress (not finished)
+# DoggyApp - Work in Progress
+## Demo
+![demo](https://user-images.githubusercontent.com/10107412/147437756-a51e6236-3ed4-4815-9cc2-efe37c3432ac.gif)
 ## Current Functionality
 - The App currently uses `retrofit` to get a list of dog breeds from the DogApi to populate a `RecyclerView` in `MainActivity`.
 - Each breed name has an `OnClickListener` that goes to the Gallery Screen.
-- Gallery Screen displays pictures of selected breed with `glide`.
+- Gallery Screen displays pictures of selected breed in a 2 column grid `RecyclerView` with `glide`.
+- Each picture in the Gallery Screen has an `OnClickListener` that toggles favorite & unfavorite.
+- Favorited pictures show a gold star & non favorites show a grey star.
+- Each favorited picture has it's URL added to `favList` List located in `MyApplication.kt`.
+- Floating action button on Gallery Screen opens `EmailDialog` that receives an email address.
+- After `email` button is clicked on `EmailDialog` app opens up installed email app to send favorites to entered email address.
 ## TODO
 ### Dog Breed Screen
 - [ ] modify api call to get sub breeds as well
@@ -13,16 +20,12 @@
 ### Gallery Screen
 - [x] Add Gallery Activity
 - [x] display pictures of selected breed
-- [ ] onTouch of picture toggles favorite/unfavorite
+- [x] onTouch of picture toggles favorite/unfavorite
 - [ ] favorited picture identified by a heart/paw icon on corner of picture
 - [ ] add persistence for favorites
-- [ ] floating action button to share favorites via installed email app
+- [x] floating action button to share favorites via installed email app
 ### Extras
 - [ ] add testing
 - [ ] download and persist images for offline use
 - [ ] download all images of breed with progress bar using background woker
-## Demo on Emulator
-![demo](https://user-images.githubusercontent.com/10107412/147046598-7acd5fa8-c149-4aaf-957e-7d262fa4911a.gif)
 
-## Demo on Android Device
-https://user-images.githubusercontent.com/10107412/147047530-568fc75d-d6d6-4881-b029-d5a00d58ef90.mp4
