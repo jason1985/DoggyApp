@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +25,16 @@ class GalleryActivity : AppCompatActivity() {
         val sBreed = findViewById<TextView>(R.id.textViewGallery)
         sBreed.text = selectedBreed + "s"
 
-        ///retrofit
+        // floating action button - email
+
+        val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
+
+        fab.setOnClickListener {
+            var dialog = EmailDialog()
+            dialog.show(supportFragmentManager, "EmailDialog")
+        }
+
+        // retrofit
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://dog.ceo/api/")

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -37,10 +38,12 @@ class DogImagesAdapter(private val dogImages: ArrayList<Dog>) : RecyclerView.Ada
                 MyApplication.remove(dogImages[position].breed)
                 favOff.visibility = View.VISIBLE
                 favOn.visibility = View.INVISIBLE
+                Toast.makeText(holder.itemView.context,"Removed from Favorites",Toast.LENGTH_SHORT).show()
             } else{
                 MyApplication.add(dogImages[position].breed)
                 favOff.visibility = View.INVISIBLE
                 favOn.visibility = View.VISIBLE
+                Toast.makeText(holder.itemView.context,"Added to Favorites",Toast.LENGTH_SHORT).show()
             }
             Log.d("Jason",MyApplication.getFavList().toString())
         }
