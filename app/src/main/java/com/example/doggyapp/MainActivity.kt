@@ -1,5 +1,6 @@
 package com.example.doggyapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnShowFavs.setOnClickListener {
+            val intent = Intent(this, FavoritesDisplay::class.java)
+            startActivity(intent)
+        }
+
         ///retrofit
 
         val retrofit = Retrofit.Builder()
@@ -39,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<DogBreeds>, t: Throwable) {
                 d("net", "onFailure $t")
             }
-
         })
     }
 
