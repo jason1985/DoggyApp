@@ -2,6 +2,7 @@ package com.example.doggyapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +48,23 @@ class GalleryActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO){
             try {
-                val response = api.fetchAllImages(selectedBreed)
+                // handle sub breeds
+                // if selectedBreed has a space then split on space and reverse it
+                // ex: endpoint for "russell terrier" is /terrier/russell
+                // one edge case is "australian shepherd"
+                lateinit var response: Response<DogBreeds>
+                if(selectedBreed.contains(" ")){
+                    if(selectedBreed.contains("australian shepherd")){ // edge case
+                        response = api.fetchAllImages("australian/shepherd")
+                    } else {
+                        val v: List<String> = selectedBreed.split(" ")
+                        val newBreed = "${v[1]}/${v[0]}"
+                        Log.d("jason",newBreed)
+                        response = api.fetchAllImages(newBreed)
+                    }
+                } else {
+                    response = api.fetchAllImages(selectedBreed)
+                }
                 if(response.isSuccessful) {
                     withContext(Main) {
                         showData(response.body()!!)

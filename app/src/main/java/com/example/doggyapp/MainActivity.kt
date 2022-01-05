@@ -2,7 +2,6 @@ package com.example.doggyapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log.d
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,9 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -32,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        ///retrofit
+        // retrofit
 
         val api = Retrofit.Builder()
             .baseUrl("https://dog.ceo/api/breeds/")
@@ -42,10 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO){
             try {
-                val response = api.fetchAllBreeds()
+                val response = api.fetchAllBreedsAndSubBreeds()
                 if(response.isSuccessful) {
                     withContext(Dispatchers.Main) {
-                        showData(response.body()!!)
+                        handleData(response.body()!!)
                     }
                 }
             } catch(e: Throwable) {
@@ -57,16 +53,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showData(breeds: DogBreeds){
-            val dogs = ArrayList<Dog>()
+    private fun handleData(breeds: BreedsAndSubBreeds){
+        val obj = breeds.message
+        val set = obj.keySet()
+        val doggies = ArrayList<Dog>()
 
-            for (item in breeds.message) {
-                dogs.add(Dog(item))
+        for(i in set) {
+            if(obj.getAsJsonArray(i).size() > 0) { // add all sub breeds to array
+                val arr = obj.getAsJsonArray(i)
+                for(j in arr){
+                    if("${j.asString} $i".contains("shepherd australian")){
+                        // this is one edge case in the sub breeds
+                        // should read as "australian shepherd"
+                        doggies.add(Dog("$i ${j.asString}"))
+                    } else {
+                        doggies.add(Dog("${j.asString} $i"))
+                    }
+                }
+            } else {
+                doggies.add(Dog(i))
             }
+        }
 
-            binding.recyclerView.apply {
-                layoutManager = LinearLayoutManager(this@MainActivity)
-                adapter = DogListAdapter(dogs)
-            }
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = DogListAdapter(doggies)
+        }
+
     }
 }

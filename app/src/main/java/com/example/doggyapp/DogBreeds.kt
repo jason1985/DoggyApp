@@ -1,3 +1,3 @@
 package com.example.doggyapp
 
-class DogBreeds(val message: List<String>)
+data class DogBreeds(val message: List<String>)
