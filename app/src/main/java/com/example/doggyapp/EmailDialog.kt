@@ -40,7 +40,7 @@ class EmailDialog: DialogFragment() {
                 }
                 emailString += "\nSent from DoggyApp"
 
-                val emailArr = (etEmail.text.toString())
+                val emailArr = arrayOf<String>(etEmail.text.toString())
 
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
