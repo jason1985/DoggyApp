@@ -1,4 +1,4 @@
-package com.example.doggyapp
+package com.example.doggyapp.database
 
 import androidx.room.Dao
 import androidx.room.Insert

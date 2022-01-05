@@ -1,10 +1,13 @@
-package com.example.doggyapp
+package com.example.doggyapp.activities.favoritesDisplay
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.doggyapp.EmailDialog
+import com.example.doggyapp.R
+import com.example.doggyapp.database.AppDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,15 +18,13 @@ class FavoritesDisplay : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites_display)
 
-        // actionbar
         val actionbar = supportActionBar
         actionbar!!.title = "Current Favorites"
-        //set back button
+        // set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
 
-        // floating action button - email
-
+        // floating action button -> opens EmailDialog
         val fab = findViewById<FloatingActionButton>(R.id.fab_favs_display)
 
         fab.setOnClickListener {

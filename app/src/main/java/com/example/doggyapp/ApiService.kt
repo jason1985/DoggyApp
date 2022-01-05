@@ -1,14 +1,12 @@
 package com.example.doggyapp
 
-import com.google.gson.JsonObject
+import com.example.doggyapp.models.BreedsAndSubBreeds
+import com.example.doggyapp.models.DogBreeds
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("list")
-    suspend fun fetchAllBreeds(): Response<DogBreeds>
-
     @GET("list/all")
     suspend fun fetchAllBreedsAndSubBreeds(): Response<BreedsAndSubBreeds>
 

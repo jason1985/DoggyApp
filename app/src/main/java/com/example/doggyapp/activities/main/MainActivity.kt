@@ -1,11 +1,15 @@
-package com.example.doggyapp
+package com.example.doggyapp.activities.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.doggyapp.ApiService
 import com.example.doggyapp.databinding.ActivityMainBinding
+import com.example.doggyapp.activities.favoritesDisplay.FavoritesDisplay
+import com.example.doggyapp.models.BreedsAndSubBreeds
+import com.example.doggyapp.models.Dog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -29,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         // retrofit
-
         val api = Retrofit.Builder()
             .baseUrl("https://dog.ceo/api/breeds/")
             .addConverterFactory(GsonConverterFactory.create())

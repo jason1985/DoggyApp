@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.room.Room
+import com.example.doggyapp.database.AppDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -52,8 +53,6 @@ class EmailDialog: DialogFragment() {
                 startActivity(intent)
             }
         }
-
         return rootView
     }
-
 }

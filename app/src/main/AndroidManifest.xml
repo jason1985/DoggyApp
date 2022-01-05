@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoggyApp">
         <activity
-            android:name=".FavoritesDisplay"
+            android:name="com.example.doggyapp.activities.favoritesDisplay.FavoritesDisplay"
             android:exported="false" />
         <activity
-            android:name=".GalleryActivity"
+            android:name="com.example.doggyapp.activities.gallery.GalleryActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.doggyapp.activities.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.DoggyApp.NoActionBar">
@@ -29,5 +29,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

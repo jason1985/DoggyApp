@@ -1,4 +1,4 @@
-package com.example.doggyapp
+package com.example.doggyapp.models
 
 import com.google.gson.JsonObject
 

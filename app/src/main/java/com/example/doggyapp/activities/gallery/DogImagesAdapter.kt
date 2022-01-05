@@ -1,6 +1,5 @@
-package com.example.doggyapp
+package com.example.doggyapp.activities.gallery
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.example.doggyapp.R
+import com.example.doggyapp.database.AppDatabase
+import com.example.doggyapp.database.Favorite
+import com.example.doggyapp.models.Dog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -29,13 +32,13 @@ class DogImagesAdapter(private val dogImages: ArrayList<Dog>) : RecyclerView.Ada
         val favOff: ImageView = holder.itemView.findViewById(R.id.iv_fav_off)
         val favOn: ImageView = holder.itemView.findViewById(R.id.iv_fav_on)
 
-        // setup db
+        // setup database
         val db = Room.databaseBuilder(
             holder.itemView.context.applicationContext,
             AppDatabase::class.java, "db"
         ).build()
 
-        //check what favs exist
+        //check what favorites exist
         CoroutineScope(IO).launch {
           val allFavs = db.favoriteDao().getAllFavorites()
             withContext(Main){
@@ -48,13 +51,6 @@ class DogImagesAdapter(private val dogImages: ArrayList<Dog>) : RecyclerView.Ada
                 }
             }
         }
-
-//        Thread{
-//            val favs = db.favoriteDao().getAllFavorites()
-//            for(fav in favs){
-//                Log.d("jason",fav.url)
-//            }
-//        }.start()
 
         holder.itemView.setOnClickListener{
             CoroutineScope(IO).launch {
@@ -69,7 +65,7 @@ class DogImagesAdapter(private val dogImages: ArrayList<Dog>) : RecyclerView.Ada
                         Toast.makeText(holder.itemView.context,"Removed from Favorites",Toast.LENGTH_SHORT).show()
                     }
                 } else{
-                    // add fav to db
+                    // add favorite to database
                     db.favoriteDao().addFavorite(Favorite(dogImages[position].breed))
 
                     withContext(Main){

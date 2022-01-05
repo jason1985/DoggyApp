@@ -1,4 +1,4 @@
-package com.example.doggyapp
+package com.example.doggyapp.activities.favoritesDisplay
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.example.doggyapp.R
+import com.example.doggyapp.database.AppDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +44,7 @@ open class FavoritesDisplayAdapter(private val dogImages: MutableList<String>) :
         ).build()
 
         holder.removeButton.setOnClickListener {
-            // remove fav from db
+            // remove favorite from db
             CoroutineScope(Dispatchers.IO).launch {
                 db.favoriteDao().removeFavorite(dog.toString())
 

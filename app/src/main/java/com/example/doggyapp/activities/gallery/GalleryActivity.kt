@@ -1,4 +1,4 @@
-package com.example.doggyapp
+package com.example.doggyapp.activities.gallery
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.doggyapp.ApiService
+import com.example.doggyapp.EmailDialog
+import com.example.doggyapp.R
+import com.example.doggyapp.models.Dog
+import com.example.doggyapp.models.DogBreeds
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -29,8 +34,7 @@ class GalleryActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
 
-        // floating action button - email
-
+        // floating action button -> opens EmailDialog
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
 
         fab.setOnClickListener {
@@ -39,7 +43,6 @@ class GalleryActivity : AppCompatActivity() {
         }
 
         // retrofit
-
         val api = Retrofit.Builder()
             .baseUrl("https://dog.ceo/api/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -49,9 +52,9 @@ class GalleryActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO){
             try {
                 // handle sub breeds
-                // if selectedBreed has a space then split on space and reverse it
-                // ex: endpoint for "russell terrier" is /terrier/russell
-                // one edge case is "australian shepherd"
+                //   if selectedBreed has a space then split on space and reverse it
+                //   ex: endpoint for "russell terrier" is /terrier/russell
+                //   one edge case is "australian shepherd" and it's endpoint is /australian/shepherd
                 lateinit var response: Response<DogBreeds>
                 if(selectedBreed.contains(" ")){
                     if(selectedBreed.contains("australian shepherd")){ // edge case
@@ -67,7 +70,7 @@ class GalleryActivity : AppCompatActivity() {
                 }
                 if(response.isSuccessful) {
                     withContext(Main) {
-                        showData(response.body()!!)
+                        handleData(response.body()!!)
                     }
                 }
             } catch (e: Throwable) {
@@ -79,7 +82,7 @@ class GalleryActivity : AppCompatActivity() {
         }
     }
 
-    private fun showData(breeds: DogBreeds){
+    private fun handleData(breeds: DogBreeds){
         val dogImages = ArrayList<Dog>()
 
         for (item in breeds.message) {
