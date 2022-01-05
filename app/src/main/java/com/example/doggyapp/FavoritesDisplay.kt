@@ -2,8 +2,6 @@ package com.example.doggyapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -17,12 +15,19 @@ class FavoritesDisplay : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites_display)
 
+        // actionbar
+        val actionbar = supportActionBar
+        actionbar!!.title = "Current Favorites"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+
         // floating action button - email
 
         val fab = findViewById<FloatingActionButton>(R.id.fab_favs_display)
 
         fab.setOnClickListener {
-            var dialog = EmailDialog()
+            val dialog = EmailDialog()
             dialog.show(supportFragmentManager, "EmailDialog")
         }
 
@@ -47,5 +52,10 @@ class FavoritesDisplay : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@FavoritesDisplay)
             adapter = FavoritesDisplayAdapter(dogImages)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

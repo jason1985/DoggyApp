@@ -2,7 +2,6 @@ package com.example.doggyapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +20,13 @@ class GalleryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gallery)
 
         val selectedBreed: String = intent.getStringExtra("selectedBreed").toString()
-        val sBreed = findViewById<TextView>(R.id.textViewGallery)
-        sBreed.text = selectedBreed + "s"
+
+        // actionbar
+        val actionbar = supportActionBar
+        actionbar!!.title = "Gallery of ${selectedBreed}s"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
 
         // floating action button - email
 
@@ -71,5 +75,10 @@ class GalleryActivity : AppCompatActivity() {
             layoutManager = GridLayoutManager(context.applicationContext,2)
             adapter = DogImagesAdapter(dogImages)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
