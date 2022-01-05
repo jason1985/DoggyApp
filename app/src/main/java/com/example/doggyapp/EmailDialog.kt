@@ -19,7 +19,7 @@ class EmailDialog: DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val rootView: View = inflater.inflate(R.layout.email_dialog,container,false)
         val btnEmail = rootView.findViewById<Button>(R.id.btn_email)
         val etEmail = rootView.findViewById<EditText>(R.id.et_email)
@@ -40,7 +40,7 @@ class EmailDialog: DialogFragment() {
                 }
                 emailString += "\nSent from DoggyApp"
 
-                val emailArr = arrayOf<String>(etEmail.text.toString())
+                val emailArr = (etEmail.text.toString())
 
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")

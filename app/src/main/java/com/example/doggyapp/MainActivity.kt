@@ -3,9 +3,14 @@ package com.example.doggyapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.doggyapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,23 +34,27 @@ class MainActivity : AppCompatActivity() {
 
         ///retrofit
 
-        val retrofit = Retrofit.Builder()
+        val api = Retrofit.Builder()
             .baseUrl("https://dog.ceo/api/breeds/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(ApiService::class.java)
 
-        val api = retrofit.create(ApiService::class.java)
-
-        api.fetchAllUsers().enqueue(object : Callback<DogBreeds> {
-            override fun onResponse(call: Call<DogBreeds>, response: Response<DogBreeds>) {
-//                d("test","onResponse: ${response.body()?.message!![0]}")
-                showData(response.body()!!)
+        GlobalScope.launch(Dispatchers.IO){
+            try {
+                val response = api.fetchAllBreeds()
+                if(response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        showData(response.body()!!)
+                    }
+                }
+            } catch(e: Throwable) {
+                // handle failure
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
+                }
             }
-
-            override fun onFailure(call: Call<DogBreeds>, t: Throwable) {
-                d("net", "onFailure $t")
-            }
-        })
+        }
     }
 
     private fun showData(breeds: DogBreeds){
