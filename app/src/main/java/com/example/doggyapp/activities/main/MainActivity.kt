@@ -5,21 +5,27 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.doggyapp.ApiService
+import com.example.doggyapp.DogApi
 import com.example.doggyapp.databinding.ActivityMainBinding
 import com.example.doggyapp.activities.favoritesDisplay.FavoritesDisplay
 import com.example.doggyapp.models.BreedsAndSubBreeds
 import com.example.doggyapp.models.Dog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
+import javax.inject.Named
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    @Inject
+    @Named("provideDogApi")
+    lateinit var api: DogApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +37,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, FavoritesDisplay::class.java)
             startActivity(intent)
         }
-
-        // retrofit
-        val api = Retrofit.Builder()
-            .baseUrl("https://dog.ceo/api/breeds/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
 
         GlobalScope.launch(Dispatchers.IO){
             try {

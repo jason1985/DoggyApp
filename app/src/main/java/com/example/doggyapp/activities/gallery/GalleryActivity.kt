@@ -6,21 +6,28 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doggyapp.ApiService
+import com.example.doggyapp.DogApi
 import com.example.doggyapp.EmailDialog
 import com.example.doggyapp.R
 import com.example.doggyapp.models.Dog
 import com.example.doggyapp.models.DogBreeds
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
+import javax.inject.Named
 
+@AndroidEntryPoint
 class GalleryActivity : AppCompatActivity() {
+    @Inject
+    @Named("provideDogApi")
+    lateinit var api: DogApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
@@ -41,13 +48,6 @@ class GalleryActivity : AppCompatActivity() {
             var dialog = EmailDialog()
             dialog.show(supportFragmentManager, "EmailDialog")
         }
-
-        // retrofit
-        val api = Retrofit.Builder()
-            .baseUrl("https://dog.ceo/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
 
         GlobalScope.launch(Dispatchers.IO){
             try {
