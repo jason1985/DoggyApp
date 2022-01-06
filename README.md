@@ -1,31 +1,31 @@
-# DoggyApp - Work in Progress
-## Demo
-![demo](https://user-images.githubusercontent.com/10107412/147437756-a51e6236-3ed4-4815-9cc2-efe37c3432ac.gif)
+# DoggyApp
+## Demo on Emulator
+![demo](https://user-images.githubusercontent.com/10107412/148344449-7aa468a9-7ad4-4f98-bc83-a792e81fde56.gif)
+## Demo on Android Phone
+https://user-images.githubusercontent.com/10107412/148344628-0e779bb4-88cc-4c4d-bd2c-d2dfb0a20750.mp4
+## MainActivity Screenshot
+![ss](https://user-images.githubusercontent.com/10107412/148348312-b53aad3f-38a7-43d4-a14a-9211ed4ef6cb.jpg)
+## Gallery Screenshot
+![ss2](https://user-images.githubusercontent.com/10107412/148348754-c996cd22-1faa-434d-bde7-a5080356bf7d.jpg)
+## Favorites Screenshot
+![ss3](https://user-images.githubusercontent.com/10107412/148349922-b39903be-47c7-4647-a339-5c91abb1b971.jpg)
 ## Current Functionality
-- The App currently uses `retrofit` to get a list of dog breeds from the DogApi to populate a `RecyclerView` in `MainActivity`.
-- Each breed name has an `OnClickListener` that goes to the Gallery Screen.
-- Gallery Screen displays pictures of selected breed in a 2 column grid `RecyclerView` with `glide`.
-- Each picture in the Gallery Screen has an `OnClickListener` that toggles favorite & unfavorite.
-- Favorited pictures show a gold star & non favorites show a grey star.
-- Each favorited picture has it's URL added to `favList` List located in `MyApplication.kt`.
-- Floating action button on Gallery Screen opens `EmailDialog` that receives an email address.
-- After `email` button is clicked on `EmailDialog` app opens up installed email app to send favorites to entered email address.
+### Dependencies 
+- retrofit -> used to make api calls to the dog api
+- glide -> used to display pictures from urls received from dog api
+- room -> used to access local SQLite Database
+- coroutines -> used to make IO calls to database and api without locking the Main thread
+- dagger - hilt -> used to do dependency injection providing a Singleton instance of local database and retrofit
+### Screens
+- Main/Home Screen - Displays lists of all breeds and sub breeds
+- Gallery Screen - Shows pictures of currently selected breed
+- Favorites Screen - Shows all of your saved favorites with option to remove from favorites
+- Email Dialog - Opens after clicking on the floating action button. It allows you to share your favorites via email
+### Other Features
+- Favorites persist between reloads of the app
+- Favorite Dog Images can be viewed even when offline
+### Error Handling
+- If by chance one of the api call fails, a toast message will be displayed with the error message
 ## TODO
-### Dog Breed Screen
-- [ ] modify api call to get sub breeds as well
-- [x] Add a title to the top of screen (Choose a Dog Breed)
-- [ ] add styling to Dog Breed Screen
-- [x] add onTouch functionality to select breed and switch to Gallery Screen
-- [x] add api call to get pictures from selected breed
-### Gallery Screen
-- [x] Add Gallery Activity
-- [x] display pictures of selected breed
-- [x] onTouch of picture toggles favorite/unfavorite
-- [ ] favorited picture identified by a heart/paw icon on corner of picture
-- [ ] add persistence for favorites
-- [x] floating action button to share favorites via installed email app
-### Extras
 - [ ] add testing
-- [ ] download and persist images for offline use
 - [ ] download all images of breed with progress bar using background woker
-
