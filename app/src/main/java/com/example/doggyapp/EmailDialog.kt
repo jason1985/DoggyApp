@@ -9,13 +9,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
-import androidx.room.Room
 import com.example.doggyapp.database.AppDatabase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 
+@AndroidEntryPoint
 class EmailDialog: DialogFragment() {
+    @Inject
+    @Named("provideAppDatabase")
+    lateinit var db: AppDatabase
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,11 +34,6 @@ class EmailDialog: DialogFragment() {
 
         btnEmail.setOnClickListener {
             var emailString = "Links to pictures of cute dogs:\n\n"
-
-            val db = Room.databaseBuilder(
-                this.requireContext().applicationContext,
-                AppDatabase::class.java, "db"
-            ).build()
 
             CoroutineScope(IO).launch {
                 val favArr = db.favoriteDao().getAllFavorites()

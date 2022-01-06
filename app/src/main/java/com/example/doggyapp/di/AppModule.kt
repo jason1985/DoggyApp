@@ -26,12 +26,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideFavoriteDao(
-        database: AppDatabase
-    ) = database.favoriteDao()
-
-    @Singleton
-    @Provides
     @Named("provideDogApi")
     fun provideDogApi(): DogApi {
         return Retrofit.Builder()
