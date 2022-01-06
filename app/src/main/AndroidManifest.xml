@@ -14,12 +14,15 @@
         android:theme="@style/Theme.DoggyApp">
         <activity
             android:name="com.example.doggyapp.activities.favoritesDisplay.FavoritesDisplay"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.example.doggyapp.activities.gallery.GalleryActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.example.doggyapp.activities.main.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.DoggyApp.NoActionBar">
