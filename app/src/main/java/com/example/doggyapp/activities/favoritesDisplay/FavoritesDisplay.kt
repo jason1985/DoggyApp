@@ -4,16 +4,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.doggyapp.EmailDialog
 import com.example.doggyapp.R
 import com.example.doggyapp.database.AppDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 
+@AndroidEntryPoint
 class FavoritesDisplay : AppCompatActivity() {
+    @Inject
+    @Named("provideAppDatabase")
+    lateinit var db: AppDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites_display)
@@ -33,11 +40,6 @@ class FavoritesDisplay : AppCompatActivity() {
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.rv_favs_display)
-
-        val db = Room.databaseBuilder(
-            this.applicationContext,
-            AppDatabase::class.java, "db"
-        ).build()
 
         val dogImages = ArrayList<String>()
 
