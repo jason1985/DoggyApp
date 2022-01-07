@@ -60,20 +60,22 @@ class MainActivity : AppCompatActivity() {
         val set = obj.keySet()
         val doggies = ArrayList<Dog>()
 
-        for(i in set) {
-            if(obj.getAsJsonArray(i).size() > 0) { // add all sub breeds to array
-                val arr = obj.getAsJsonArray(i)
-                for(j in arr){
-                    if("${j.asString} $i".contains("shepherd australian")){
+        for(mainBreedName in set) {
+            if(obj.getAsJsonArray(mainBreedName).size() > 0) { // add all sub breeds to array
+                val arr = obj.getAsJsonArray(mainBreedName)
+//              recvd as:  "bulldog": [ "boston", "english", "french"]
+//              output as: "boston bulldog", "english bulldog", "french bulldog"
+                for(subBreedName in arr){
+                    if("${subBreedName.asString} $mainBreedName".contains("shepherd australian")){
                         // this is one edge case in the sub breeds
                         // should read as "australian shepherd"
-                        doggies.add(Dog("$i ${j.asString}"))
+                        doggies.add(Dog("$mainBreedName ${subBreedName.asString}"))
                     } else {
-                        doggies.add(Dog("${j.asString} $i"))
+                        doggies.add(Dog("${subBreedName.asString} $mainBreedName"))
                     }
                 }
             } else {
-                doggies.add(Dog(i))
+                doggies.add(Dog(mainBreedName))
             }
         }
 

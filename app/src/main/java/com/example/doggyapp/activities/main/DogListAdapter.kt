@@ -10,7 +10,6 @@ import com.example.doggyapp.R
 import com.example.doggyapp.activities.gallery.GalleryActivity
 import com.example.doggyapp.models.Dog
 
-
 class DogListAdapter(private val dogs: ArrayList<Dog>) : RecyclerView.Adapter<DogListAdapter.ViewHolder>() {
      class ViewHolder(itemView: View,dogs: ArrayList<Dog>) : RecyclerView.ViewHolder(itemView){
          init {
