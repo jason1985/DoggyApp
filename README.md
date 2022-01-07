@@ -11,11 +11,11 @@ https://user-images.githubusercontent.com/10107412/148344628-0e779bb4-88cc-4c4d-
 ![ss3](https://user-images.githubusercontent.com/10107412/148349922-b39903be-47c7-4647-a339-5c91abb1b971.jpg)
 ## Current Functionality
 ### Dependencies 
-- retrofit -> used to make api calls to the dog api
-- glide -> used to display pictures from urls received from dog api
-- room -> used to access local SQLite Database
-- coroutines -> used to make IO calls to database and api without locking the Main thread
-- dagger - hilt -> used to do dependency injection providing a Singleton instance of local database and retrofit
+- `retrofit` -> used to make api calls to the dog api
+- `glide` -> used to display pictures from urls received from dog api
+- `room` -> used to access local SQLite Database
+- `coroutines` -> used to make IO calls to database and api without locking the Main thread
+- `dagger - hilt` -> used to do dependency injection providing a Singleton instance of local database and retrofit
 ### Screens
 - Main/Home Screen - Displays lists of all breeds and sub breeds
 - Gallery Screen - Shows pictures of currently selected breed
@@ -29,3 +29,4 @@ https://user-images.githubusercontent.com/10107412/148344628-0e779bb4-88cc-4c4d-
 ## TODO
 - [ ] add testing
 - [ ] download all images of breed with progress bar using background woker
+- [ ] update app to use MVVM pattern
