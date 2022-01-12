@@ -29,7 +29,6 @@ class FavoritesDisplay : AppCompatActivity() {
         actionbar!!.title = "Current Favorites"
         // set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
 
         // floating action button -> opens EmailDialog
         val fab = findViewById<FloatingActionButton>(R.id.fab_favs_display)

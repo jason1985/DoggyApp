@@ -39,7 +39,6 @@ class GalleryActivity : AppCompatActivity() {
         actionbar!!.title = "Gallery of ${selectedBreed}s"
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
 
         // floating action button -> opens EmailDialog
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
